@@ -28,7 +28,7 @@ class Note:
         """Save the note to MongoDB"""
         try:
             if not database.is_connected():
-                raise Exception("Database not connected")
+                raise Exception("Database connection not available. Please check your MongoDB connection.")
                 
             collection = self.get_collection()
             note_data = {
@@ -42,10 +42,12 @@ class Note:
             
             if self._id:
                 # Update existing note
-                collection.update_one(
+                result = collection.update_one(
                     {'_id': ObjectId(self._id)},
                     {'$set': note_data}
                 )
+                if result.matched_count == 0:
+                    raise Exception(f"Note with id {self._id} not found")
             else:
                 # Create new note
                 note_data['created_at'] = self.created_at
@@ -55,8 +57,9 @@ class Note:
             self.updated_at = note_data['updated_at']
             return self
         except Exception as e:
-            logger.error(f"Error saving note: {e}")
-            raise
+            error_msg = f"Error saving note: {e}"
+            logger.error(error_msg)
+            raise Exception(error_msg)
     
     @classmethod
     def find_all(cls):

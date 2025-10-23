@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from datetime import datetime
 from src.models.note import Note
+import logging
+
+logger = logging.getLogger(__name__)
 
 note_bp = Blueprint('note', __name__)
 
@@ -51,7 +54,21 @@ def create_note():
         note.save()
         return jsonify(note.to_dict()), 201
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        error_message = str(e)
+        logger.error(f"Error creating note: {error_message}")
+        
+        # Check if it's a database connection error
+        if "Database connection not available" in error_message or "Database not connected" in error_message:
+            return jsonify({
+                'error': 'Database connection failed',
+                'message': 'Unable to connect to the database. Please try again later.',
+                'details': error_message
+            }), 503
+        
+        return jsonify({
+            'error': 'Failed to create note',
+            'message': error_message
+        }), 500
 
 @note_bp.route('/notes/<note_id>', methods=['GET'])
 def get_note(note_id):
