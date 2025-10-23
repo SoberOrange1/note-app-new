@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from datetime import datetime
-from src.models.note import Note
+from src.models.note_sqlite import Note  # Switch to SQLite Note model
 import logging
 
 logger = logging.getLogger(__name__)

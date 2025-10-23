@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
-from src.config.database import database
+from src.config.database_sqlite import database  # Switch to SQLite
 from src.routes.user import user_bp
 from src.routes.note import note_bp
 from src.routes.ai import ai_bp
@@ -36,6 +36,7 @@ def health_check():
         return jsonify({
             'status': 'healthy' if db_status else 'database_disconnected',
             'database_connected': db_status,
+            'database_type': 'SQLite',
             'environment': os.environ.get('FLASK_ENV', 'development')
         }), 200 if db_status else 503
     except Exception as e:
@@ -45,13 +46,12 @@ def health_check():
             'error': str(e)
         }), 500
 
-# Initialize MongoDB Atlas connection with error handling
+# Initialize SQLite database with error handling
 try:
     database.init_app(app)
 except Exception as e:
     logger.error(f"Failed to initialize database: {e}")
     # Continue running the app even if database fails to initialize
-    # The database methods will handle the connection gracefully
 
 # register blueprints
 app.register_blueprint(user_bp, url_prefix='/api')
