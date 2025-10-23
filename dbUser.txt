@@ -1,0 +1,7 @@
+theorangejeff20_db_user
+EcKBVf2b00yIEiFQ
+
+mongodb+srv://theorangejeff20_db_user:EcKBVf2b00yIEiFQ@noteapp.gppinh1.mongodb.net/
+
+
+好的，我现在要加入一个功能是翻译功能，可以将我的笔记翻译成另外一种语言（英语，中文和日语），前端需要在

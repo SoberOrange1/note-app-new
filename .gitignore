@@ -6,6 +6,10 @@ __pycache__/
 # Database
 *.db
 
+# MongoDB Atlas and Environment Configuration
+.env
+.env.local
+.env.production
 
 # C extensions
 *.so

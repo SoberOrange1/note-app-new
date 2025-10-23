@@ -105,6 +105,185 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
+        .ai-smart-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .ai-smart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin: 0;
+        }
+
+        .close {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .ai-input-area {
+            margin-bottom: 20px;
+        }
+
+        .ai-input-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-input-textarea:focus {
+            outline: none;
+            border-color: #28a745;
+        }
+
+        .ai-input-help {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-ai-create {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-ai-create:hover {
+            background: #218838;
+        }
+
+        .btn-ai-create:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        .ai-loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #28a745;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+        }
+
+        .filter-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .tag-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tag-chip {
+            background: #f0f0f0;
+            color: #333;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .tag-chip:hover, .tag-chip.active {
+            background: #667eea;
+            color: white;
+        }
+
         .notes-list {
             max-height: 500px;
             overflow-y: auto;
@@ -145,6 +324,35 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .note-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .note-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 11px;
+        }
+
+        .note-time {
+            font-size: 11px;
+            color: #666;
+            margin-top: 2px;
         }
 
         .note-date {
@@ -200,8 +408,61 @@
             transform: translateY(-1px);
         }
 
+        .translate-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-select {
+            padding: 6px 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .language-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-translate {
+            background: #17a2b8;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-translate:hover {
+            background: #138496;
+            transform: translateY(-1px);
+        }
+
+        .btn-translate:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .form-group {
             margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
         .form-label {
@@ -241,6 +502,52 @@
         .form-textarea:focus {
             outline: none;
             border-color: #667eea;
+        }
+
+        .tags-input-container {
+            position: relative;
+        }
+
+        .tags-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+            min-height: 32px;
+            padding: 8px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .tag-item {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+
+        .tag-remove:hover {
+            opacity: 1;
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            padding: 4px;
+            flex: 1;
+            min-width: 120px;
+            font-size: 14px;
         }
 
         .empty-state {
@@ -283,6 +590,53 @@
             border: 1px solid #c3e6cb;
         }
 
+        .translate-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .language-select {
+            padding: 6px 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .language-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-translate {
+            background: #17a2b8;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-translate:hover {
+            background: #138496;
+            transform: translateY(-1px);
+        }
+
+        .btn-translate:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .main-content {
@@ -300,6 +654,11 @@
             
             .sidebar, .note-editor {
                 padding: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
         }
 
@@ -334,6 +693,12 @@
             <div class="sidebar">
                 <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search notes...">
                 <button class="new-note-btn" id="newNoteBtn">✨ New Note</button>
+                <button class="ai-smart-btn" id="aiSmartBtn">🤖 AI Smart Create</button>
+                
+                <div class="filter-section">
+                    <div class="filter-title">📌 Tags</div>
+                    <div class="tag-filter" id="tagFilter"></div>
+                </div>
                 
                 <div class="notes-list" id="notesList">
                     <div class="loading">Loading notes...</div>
@@ -344,6 +709,14 @@
                 <div class="editor-header">
                     <h2 class="editor-title" id="editorTitle">Select a note to edit</h2>
                     <div class="editor-actions" id="editorActions" style="display: none;">
+                        <div class="translate-controls">
+                            <select class="language-select" id="languageSelect">
+                                <option value="english">🇺🇸 English</option>
+                                <option value="chinese">🇨🇳 中文</option>
+                                <option value="japanese">🇯🇵 日本語</option>
+                            </select>
+                            <button class="btn-translate" id="translateBtn">🌐 Translate</button>
+                        </div>
                         <button class="btn btn-save" id="saveBtn">💾 Save</button>
                         <button class="btn btn-delete" id="deleteBtn">🗑️ Delete</button>
                     </div>
@@ -355,6 +728,28 @@
                     <div class="form-group">
                         <label class="form-label" for="noteTitle">Title</label>
                         <input type="text" class="form-input" id="noteTitle" placeholder="Enter note title...">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tags</label>
+                        <div class="tags-input-container">
+                            <div class="tags-display" id="tagsDisplay">
+                                <input type="text" class="tag-input" id="tagInput" placeholder="Type tag and press Enter, comma, or click away...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div>
+                                <label class="form-label" for="startTime">Start Time (Optional)</label>
+                                <input type="datetime-local" class="form-input" id="startTime">
+                            </div>
+                            <div>
+                                <label class="form-label" for="endTime">End Time (Optional)</label>
+                                <input type="datetime-local" class="form-input" id="endTime">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -371,25 +766,116 @@
         </div>
     </div>
 
+    <!-- AI Smart Create Modal -->
+    <div id="aiModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">🤖 AI Smart Create Note</h3>
+                <span class="close" id="aiModalClose">&times;</span>
+            </div>
+            
+            <div class="ai-input-area">
+                <textarea class="ai-input-textarea" id="aiInputText" placeholder="Describe your note in natural language...
+
+Examples:
+• Meeting with John tomorrow at 3pm to discuss project plans
+• Doctor appointment on Friday December 15th from 2:00 to 3:30 for annual checkup
+• Grocery list: milk, bread, eggs, apples
+• Call mom this weekend to discuss holiday plans"></textarea>
+                
+                <div class="ai-input-help">
+                    💡 <strong>Tip:</strong> AI will automatically extract the title, content, and time information from your description. Just write naturally!
+                </div>
+            </div>
+
+            <div class="ai-loading" id="aiLoading">
+                <div>🤖 AI is analyzing your text...</div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" id="aiModalCancel">Cancel</button>
+                <button class="btn-ai-create" id="aiCreateBtn">✨ Create Note</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         class NoteTaker {
             constructor() {
                 this.notes = [];
                 this.currentNote = null;
                 this.isLoading = false;
+                this.allTags = [];
+                this.selectedTags = [];
                 this.init();
             }
 
             async init() {
                 this.bindEvents();
                 await this.loadNotes();
+                await this.loadTags();
             }
 
             bindEvents() {
                 document.getElementById('newNoteBtn').addEventListener('click', () => this.createNewNote());
+                document.getElementById('aiSmartBtn').addEventListener('click', () => this.showAiModal());
                 document.getElementById('saveBtn').addEventListener('click', () => this.saveNote());
                 document.getElementById('deleteBtn').addEventListener('click', () => this.deleteNote());
                 document.getElementById('searchBox').addEventListener('input', (e) => this.searchNotes(e.target.value));
+                
+                // AI Modal events
+                document.getElementById('aiModalClose').addEventListener('click', () => this.hideAiModal());
+                document.getElementById('aiModalCancel').addEventListener('click', () => this.hideAiModal());
+                document.getElementById('aiCreateBtn').addEventListener('click', () => this.processAiInput());
+                
+                // Translate button event
+                document.getElementById('translateBtn').addEventListener('click', () => this.translateNote());
+                
+                // Close modal when clicking outside
+                document.getElementById('aiModal').addEventListener('click', (e) => {
+                    if (e.target === document.getElementById('aiModal')) {
+                        this.hideAiModal();
+                    }
+                });
+
+                // Tag input handling - improved
+                const tagInput = document.getElementById('tagInput');
+                tagInput.addEventListener('keypress', (e) => {
+                    console.log('Tag input keypress:', e.key, 'value:', e.target.value); // Debug log
+                    if (e.key === 'Enter' && e.target.value.trim()) {
+                        e.preventDefault(); // Prevent form submission
+                        const tagText = e.target.value.trim();
+                        console.log('About to add tag:', tagText); // Debug log
+                        this.addTag(tagText);
+                        e.target.value = '';
+                        console.log('Tag input cleared'); // Debug log
+                    }
+                });
+
+                // Add tag on comma or semicolon
+                tagInput.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    if (value.includes(',') || value.includes(';')) {
+                        const tagText = value.replace(/[,;]/g, '').trim();
+                        if (tagText) {
+                            this.addTag(tagText);
+                            e.target.value = '';
+                        }
+                    }
+                });
+
+                // Add tag on blur (when user clicks away)
+                tagInput.addEventListener('blur', (e) => {
+                    const tagText = e.target.value.trim();
+                    if (tagText) {
+                        this.addTag(tagText);
+                        e.target.value = '';
+                    }
+                });
+
+                // Time validation
+                document.getElementById('startTime').addEventListener('change', () => this.validateTimeRange());
+                document.getElementById('endTime').addEventListener('change', () => this.validateTimeRange());
                 
                 // Auto-save on content change (debounced)
                 let saveTimeout;
@@ -404,6 +890,136 @@
                 
                 document.getElementById('noteTitle').addEventListener('input', autoSave);
                 document.getElementById('noteContent').addEventListener('input', autoSave);
+                tagInput.addEventListener('input', autoSave);
+                document.getElementById('startTime').addEventListener('input', autoSave);
+                document.getElementById('endTime').addEventListener('input', autoSave);
+            }
+
+            validateTimeRange() {
+                const startTime = document.getElementById('startTime').value;
+                const endTime = document.getElementById('endTime').value;
+                
+                if (startTime && endTime && new Date(startTime) >= new Date(endTime)) {
+                    this.showMessage('Start time must be before end time', 'error');
+                    return false;
+                }
+                return true;
+            }
+
+            addTag(tagText) {
+                console.log('addTag called with:', tagText); // Debug log
+                console.log('currentNote before adding tag:', this.currentNote); // Debug log
+                
+                if (!this.currentNote) {
+                    console.log('No current note, cannot add tag'); // Debug log
+                    return;
+                }
+                
+                // Ensure tags array exists
+                if (!this.currentNote.tags) {
+                    this.currentNote.tags = [];
+                    console.log('Initialized empty tags array'); // Debug log
+                }
+                
+                // Add tag if it doesn't exist
+                if (!this.currentNote.tags.includes(tagText)) {
+                    this.currentNote.tags.push(tagText);
+                    console.log('Added tag:', tagText, 'Current tags:', this.currentNote.tags); // Debug log
+                    this.renderTags();
+                } else {
+                    console.log('Tag already exists:', tagText); // Debug log
+                }
+                
+                console.log('currentNote after adding tag:', this.currentNote); // Debug log
+            }
+
+            removeTag(tagText) {
+                console.log('removeTag called with:', tagText); // Debug log
+                
+                if (!this.currentNote || !this.currentNote.tags) return;
+                
+                this.currentNote.tags = this.currentNote.tags.filter(tag => tag !== tagText);
+                console.log('Removed tag:', tagText, 'Current tags:', this.currentNote.tags); // Debug log
+                this.renderTags();
+            }
+
+            renderTags() {
+                console.log('renderTags called, currentNote.tags:', this.currentNote?.tags); // Debug log
+                
+                const tagsDisplay = document.getElementById('tagsDisplay');
+                const tagInput = document.getElementById('tagInput');
+                
+                // Clear existing tags (but keep input)
+                const existingTags = tagsDisplay.querySelectorAll('.tag-item');
+                existingTags.forEach(tag => tag.remove());
+                
+                // Add tags before input
+                if (this.currentNote && this.currentNote.tags && this.currentNote.tags.length > 0) {
+                    console.log('Rendering tags:', this.currentNote.tags); // Debug log
+                    this.currentNote.tags.forEach(tag => {
+                        const tagElement = document.createElement('div');
+                        tagElement.className = 'tag-item';
+                        tagElement.innerHTML = `
+                            ${this.escapeHtml(tag)}
+                            <span class="tag-remove" onclick="noteTaker.removeTag('${this.escapeHtml(tag)}')">&times;</span>
+                        `;
+                        tagsDisplay.insertBefore(tagElement, tagInput);
+                    });
+                } else {
+                    console.log('No tags to render'); // Debug log
+                }
+            }
+
+            async loadTags() {
+                try {
+                    const response = await fetch('/api/notes/tags');
+                    if (response.ok) {
+                        this.allTags = await response.json();
+                        this.renderTagFilter();
+                    }
+                } catch (error) {
+                    console.error('Error loading tags:', error);
+                }
+            }
+
+            renderTagFilter() {
+                const tagFilter = document.getElementById('tagFilter');
+                
+                if (this.allTags.length === 0) {
+                    tagFilter.innerHTML = '<div style="color: #999; font-size: 12px;">No tags yet</div>';
+                    return;
+                }
+
+                tagFilter.innerHTML = this.allTags.map(tag => `
+                    <div class="tag-chip ${this.selectedTags.includes(tag) ? 'active' : ''}" 
+                         onclick="noteTaker.toggleTagFilter('${this.escapeHtml(tag)}')">
+                        ${this.escapeHtml(tag)}
+                    </div>
+                `).join('');
+            }
+
+            toggleTagFilter(tag) {
+                if (this.selectedTags.includes(tag)) {
+                    this.selectedTags = this.selectedTags.filter(t => t !== tag);
+                } else {
+                    this.selectedTags.push(tag);
+                }
+                
+                this.renderTagFilter();
+                this.filterNotes();
+            }
+
+            filterNotes() {
+                if (this.selectedTags.length === 0) {
+                    this.renderNotesList();
+                    return;
+                }
+
+                const filteredNotes = this.notes.filter(note => 
+                    note.tags && this.selectedTags.some(tag => note.tags.includes(tag))
+                );
+
+                this.renderNotesList(filteredNotes);
             }
 
             async loadNotes() {
@@ -424,20 +1040,35 @@
                 }
             }
 
-            renderNotesList() {
+            renderNotesList(notesToRender = null) {
                 const notesList = document.getElementById('notesList');
+                const notes = notesToRender || this.notes;
                 
-                if (this.notes.length === 0) {
+                if (notes.length === 0) {
                     notesList.innerHTML = '<div class="empty-state"><p>No notes yet. Create your first note!</p></div>';
                     return;
                 }
 
-                notesList.innerHTML = this.notes.map(note => `
+                notesList.innerHTML = notes.map(note => `
                     <div class="note-item ${this.currentNote && this.currentNote.id === note.id ? 'active' : ''}" 
-                         data-note-id="${note.id}" onclick="noteTaker.selectNote(${note.id})">
+                         data-note-id="${note.id}" onclick="noteTaker.selectNote('${note.id}')">
                         <div class="note-title">${this.escapeHtml(note.title || 'Untitled')}</div>
                         <div class="note-preview">${this.escapeHtml(note.content || 'No content')}</div>
-                        <div class="note-date">${this.formatDate(note.updated_at)}</div>
+                        <div class="note-meta">
+                            <div class="note-tags">
+                                ${note.tags ? note.tags.map(tag => 
+                                    `<span class="note-tag">${this.escapeHtml(tag)}</span>`
+                                ).join('') : ''}
+                            </div>
+                            <div class="note-date">${this.formatDate(note.updated_at)}</div>
+                        </div>
+                        ${note.start_time || note.end_time ? `
+                            <div class="note-time">
+                                ${note.start_time ? `📅 ${this.formatDateTime(note.start_time)}` : ''}
+                                ${note.start_time && note.end_time ? ' → ' : ''}
+                                ${note.end_time ? this.formatDateTime(note.end_time) : ''}
+                            </div>
+                        ` : ''}
                     </div>
                 `).join('');
             }
@@ -446,13 +1077,24 @@
                 const note = this.notes.find(n => n.id === noteId);
                 if (!note) return;
 
+                // Ensure the note has a tags array
+                if (!note.tags) {
+                    note.tags = [];
+                }
+
                 this.currentNote = note;
                 this.showEditor();
-                this.renderNotesList(); // Re-render to update active state
+                this.renderNotesList();
                 
                 document.getElementById('noteTitle').value = note.title || '';
                 document.getElementById('noteContent').value = note.content || '';
+                document.getElementById('startTime').value = note.start_time ? 
+                    new Date(note.start_time).toISOString().slice(0, 16) : '';
+                document.getElementById('endTime').value = note.end_time ? 
+                    new Date(note.end_time).toISOString().slice(0, 16) : '';
                 document.getElementById('editorTitle').textContent = note.title || 'Untitled Note';
+                
+                this.renderTags();
             }
 
             createNewNote() {
@@ -460,15 +1102,24 @@
                     id: null,
                     title: '',
                     content: '',
+                    tags: [], // Ensure this is initialized as an array
+                    start_time: null,
+                    end_time: null,
                     created_at: new Date().toISOString(),
                     updated_at: new Date().toISOString()
                 };
                 
+                console.log('Created new note with tags:', this.currentNote.tags); // Debug log
+                
                 this.showEditor();
                 document.getElementById('noteTitle').value = '';
                 document.getElementById('noteContent').value = '';
+                document.getElementById('startTime').value = '';
+                document.getElementById('endTime').value = '';
                 document.getElementById('editorTitle').textContent = 'New Note';
                 document.getElementById('noteTitle').focus();
+                
+                this.renderTags();
                 
                 // Remove active state from all notes
                 document.querySelectorAll('.note-item').forEach(item => {
@@ -491,11 +1142,24 @@
             }
 
             async saveNote(isAutoSave = false) {
+                console.log('saveNote called, isAutoSave:', isAutoSave); // Debug log
+                console.log('currentNote at start of save:', this.currentNote); // Debug log
+                
                 if (!this.currentNote) return;
 
                 const title = document.getElementById('noteTitle').value.trim();
                 const content = document.getElementById('noteContent').value.trim();
+                const startTime = document.getElementById('startTime').value;
+                const endTime = document.getElementById('endTime').value;
 
+                // Update currentNote with current form values including tags
+                this.currentNote.title = title || 'Untitled';
+                this.currentNote.content = content;
+                // Tags should already be updated in addTag/removeTag methods
+                
+                console.log('Form values - title:', title, 'content:', content); // Debug log
+                console.log('currentNote.tags before save:', this.currentNote.tags); // Debug log
+                
                 if (!title && !content) {
                     if (!isAutoSave) {
                         this.showMessage('Please enter a title or content', 'error');
@@ -503,22 +1167,30 @@
                     return;
                 }
 
+                if (!this.validateTimeRange()) {
+                    return;
+                }
+
                 try {
                     const noteData = {
-                        title: title || 'Untitled',
-                        content: content
+                        title: this.currentNote.title,
+                        content: this.currentNote.content,
+                        tags: this.currentNote.tags || [],
+                        start_time: startTime || null,
+                        end_time: endTime || null
                     };
+
+                    console.log('Saving note with data:', noteData); // Debug log
+                    console.log('Tags in noteData:', noteData.tags); // Debug log
 
                     let response;
                     if (this.currentNote.id) {
-                        // Update existing note
                         response = await fetch(`/api/notes/${this.currentNote.id}`, {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(noteData)
                         });
                     } else {
-                        // Create new note
                         response = await fetch('/api/notes', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -526,12 +1198,18 @@
                         });
                     }
 
-                    if (!response.ok) throw new Error('Failed to save note');
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.log('Server error response:', errorData); // Debug log
+                        throw new Error(errorData.error || 'Failed to save note');
+                    }
 
                     const savedNote = await response.json();
+                    console.log('Saved note response:', savedNote); // Debug log
+                    console.log('Saved note tags:', savedNote.tags); // Debug log
+                    
                     this.currentNote = savedNote;
                     
-                    // Update notes list
                     const existingIndex = this.notes.findIndex(n => n.id === savedNote.id);
                     if (existingIndex >= 0) {
                         this.notes[existingIndex] = savedNote;
@@ -540,12 +1218,14 @@
                     }
                     
                     this.renderNotesList();
+                    this.loadTags(); // Refresh tags
                     document.getElementById('editorTitle').textContent = savedNote.title;
                     
                     if (!isAutoSave) {
                         this.showMessage('Note saved successfully!', 'success');
                     }
                 } catch (error) {
+                    console.error('Save error:', error); // Debug log
                     this.showMessage(`Error saving note: ${error.message}`, 'error');
                 }
             }
@@ -562,9 +1242,9 @@
 
                     if (!response.ok) throw new Error('Failed to delete note');
 
-                    // Remove from notes array
                     this.notes = this.notes.filter(n => n.id !== this.currentNote.id);
                     this.renderNotesList();
+                    this.loadTags(); // Refresh tags
                     this.hideEditor();
                     this.showMessage('Note deleted successfully!', 'success');
                 } catch (error) {
@@ -576,23 +1256,11 @@
                 const filteredNotes = query.trim() === '' ? this.notes : 
                     this.notes.filter(note => 
                         (note.title && note.title.toLowerCase().includes(query.toLowerCase())) ||
-                        (note.content && note.content.toLowerCase().includes(query.toLowerCase()))
+                        (note.content && note.content.toLowerCase().includes(query.toLowerCase())) ||
+                        (note.tags && note.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())))
                     );
 
-                const notesList = document.getElementById('notesList');
-                if (filteredNotes.length === 0) {
-                    notesList.innerHTML = '<div class="empty-state"><p>No notes found matching your search.</p></div>';
-                    return;
-                }
-
-                notesList.innerHTML = filteredNotes.map(note => `
-                    <div class="note-item ${this.currentNote && this.currentNote.id === note.id ? 'active' : ''}" 
-                         data-note-id="${note.id}" onclick="noteTaker.selectNote(${note.id})">
-                        <div class="note-title">${this.escapeHtml(note.title || 'Untitled')}</div>
-                        <div class="note-preview">${this.escapeHtml(note.content || 'No content')}</div>
-                        <div class="note-date">${this.formatDate(note.updated_at)}</div>
-                    </div>
-                `).join('');
+                this.renderNotesList(filteredNotes);
             }
 
             showMessage(message, type) {
@@ -628,6 +1296,188 @@
                     return `${diffDays - 1} days ago`;
                 } else {
                     return date.toLocaleDateString();
+                }
+            }
+
+            formatDateTime(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+
+            // AI Smart Create methods
+            showAiModal() {
+                document.getElementById('aiModal').style.display = 'block';
+                document.getElementById('aiInputText').focus();
+                document.getElementById('aiInputText').value = '';
+                this.hideAiLoading();
+            }
+
+            hideAiModal() {
+                document.getElementById('aiModal').style.display = 'none';
+                this.hideAiLoading();
+            }
+
+            showAiLoading() {
+                document.getElementById('aiLoading').style.display = 'block';
+                document.getElementById('aiCreateBtn').disabled = true;
+            }
+
+            hideAiLoading() {
+                document.getElementById('aiLoading').style.display = 'none';
+                document.getElementById('aiCreateBtn').disabled = false;
+            }
+
+            async translateNote() {
+                if (!this.currentNote) {
+                    this.showMessage('Please select a note to translate', 'error');
+                    return;
+                }
+
+                const title = document.getElementById('noteTitle').value.trim();
+                const content = document.getElementById('noteContent').value.trim();
+                const targetLanguage = document.getElementById('languageSelect').value;
+
+                if (!title && !content) {
+                    this.showMessage('Note must have title or content to translate', 'error');
+                    return;
+                }
+
+                // Disable translate button and show loading
+                const translateBtn = document.getElementById('translateBtn');
+                const originalText = translateBtn.innerHTML;
+                translateBtn.disabled = true;
+                translateBtn.innerHTML = '🔄 Translating...';
+
+                try {
+                    const response = await fetch('/api/ai/translate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            content: content,
+                            target_language: targetLanguage
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Translation failed');
+                    }
+
+                    const result = await response.json();
+                    console.log('Translation result:', result);
+
+                    // Update the form fields with translated content
+                    if (result.title) {
+                        document.getElementById('noteTitle').value = result.title;
+                        this.currentNote.title = result.title;
+                    }
+                    
+                    if (result.content) {
+                        document.getElementById('noteContent').value = result.content;
+                        this.currentNote.content = result.content;
+                    }
+
+                    // Update editor title
+                    document.getElementById('editorTitle').textContent = result.title || 'Translated Note';
+
+                    this.showMessage(`Note translated to ${result.target_language} successfully!`, 'success');
+
+                } catch (error) {
+                    console.error('Translation error:', error);
+                    this.showMessage(`Translation failed: ${error.message}`, 'error');
+                } finally {
+                    // Re-enable translate button
+                    translateBtn.disabled = false;
+                    translateBtn.innerHTML = originalText;
+                }
+            }
+
+            async processAiInput() {
+                const inputText = document.getElementById('aiInputText').value.trim();
+                
+                if (!inputText) {
+                    alert('Please enter some text to analyze.');
+                    return;
+                }
+
+                this.showAiLoading();
+
+                try {
+                    const response = await fetch('/api/ai/smart-create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ text: inputText })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Failed to process text');
+                    }
+
+                    const aiResult = await response.json();
+                    console.log('AI parsing result:', aiResult);
+
+                    // Create new note with AI-extracted data
+                    this.currentNote = {
+                        id: null,
+                        title: aiResult.title || 'AI Generated Note',
+                        content: aiResult.content || inputText,
+                        tags: [], // Tags will be added manually
+                        start_time: aiResult.start_time,
+                        end_time: aiResult.end_time,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString()
+                    };
+
+                    // Close AI modal
+                    this.hideAiModal();
+
+                    // Show editor with AI-filled data
+                    this.showEditor();
+                    document.getElementById('noteTitle').value = this.currentNote.title;
+                    document.getElementById('noteContent').value = this.currentNote.content;
+                    
+                    // Fill time fields if available
+                    if (this.currentNote.start_time) {
+                        document.getElementById('startTime').value = 
+                            new Date(this.currentNote.start_time).toISOString().slice(0, 16);
+                    } else {
+                        document.getElementById('startTime').value = '';
+                    }
+                    
+                    if (this.currentNote.end_time) {
+                        document.getElementById('endTime').value = 
+                            new Date(this.currentNote.end_time).toISOString().slice(0, 16);
+                    } else {
+                        document.getElementById('endTime').value = '';
+                    }
+
+                    document.getElementById('editorTitle').textContent = 'AI Generated Note';
+                    this.renderTags();
+
+                    // Remove active state from all notes
+                    document.querySelectorAll('.note-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+
+                    // Show success message
+                    this.showMessage('AI has analyzed your text and created a structured note!', 'success');
+
+                } catch (error) {
+                    console.error('AI processing error:', error);
+                    this.showMessage(`AI processing failed: ${error.message}`, 'error');
+                } finally {
+                    this.hideAiLoading();
                 }
             }
         }
