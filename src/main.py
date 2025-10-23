@@ -6,7 +6,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
-from src.config.database_sqlite import database  # Switch to SQLite
+# Remove MongoDB imports completely - only use SQLite
+from src.config.database_sqlite import database
 from src.routes.user import user_bp
 from src.routes.note import note_bp
 from src.routes.ai import ai_bp

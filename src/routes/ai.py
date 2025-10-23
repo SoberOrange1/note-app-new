@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import asyncio
 from src.config.ai_client import ai_client
-from src.models.note import Note
+from src.models.note_sqlite import Note  # Switch to SQLite Note model
 
 ai_bp = Blueprint('ai', __name__)
 

@@ -19,6 +19,7 @@ class Note:
     
     def save(self):
         """Save the note to SQLite database"""
+        conn = None
         try:
             conn = database.get_connection()
             if not conn:
@@ -27,7 +28,7 @@ class Note:
             cursor = conn.cursor()
             
             # Convert tags list to JSON string
-            tags_json = json.dumps(self.tags)
+            tags_json = json.dumps(self.tags) if self.tags else '[]'
             
             # Convert datetime to ISO string
             start_time_str = self.start_time.isoformat() if self.start_time else None
@@ -58,16 +59,19 @@ class Note:
                 self._id = cursor.lastrowid
             
             conn.commit()
-            conn.close()
-            
             self.updated_at = datetime.fromisoformat(updated_at_str)
+            logger.info(f"✅ Note saved successfully with ID: {self._id}")
             return self
             
         except Exception as e:
-            logger.error(f"Error saving note: {e}")
+            error_msg = f"Error saving note: {e}"
+            logger.error(error_msg)
+            if conn:
+                conn.rollback()
+            raise Exception(error_msg)
+        finally:
             if conn:
                 conn.close()
-            raise Exception(f"Error saving note: {e}")
     
     @classmethod
     def find_all(cls):

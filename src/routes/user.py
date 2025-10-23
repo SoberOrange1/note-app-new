@@ -1,5 +1,8 @@
 from flask import Blueprint, jsonify, request
-from src.models.user import User
+from src.models.user_sqlite import User  # Switch to SQLite User model
+import logging
+
+logger = logging.getLogger(__name__)
 
 user_bp = Blueprint('user', __name__)
 
@@ -10,6 +13,7 @@ def get_users():
         users = User.find_all()
         return jsonify([user.to_dict() for user in users])
     except Exception as e:
+        logger.error(f"Error fetching users: {e}")
         return jsonify({'error': str(e)}), 500
 
 @user_bp.route('/users', methods=['POST'])
@@ -30,6 +34,7 @@ def create_user():
         user.save()
         return jsonify(user.to_dict()), 201
     except Exception as e:
+        logger.error(f"Error creating user: {e}")
         return jsonify({'error': str(e)}), 500
 
 @user_bp.route('/users/<user_id>', methods=['GET'])
@@ -41,6 +46,7 @@ def get_user(user_id):
             return jsonify({'error': 'User not found'}), 404
         return jsonify(user.to_dict())
     except Exception as e:
+        logger.error(f"Error fetching user {user_id}: {e}")
         return jsonify({'error': str(e)}), 500
 
 @user_bp.route('/users/<user_id>', methods=['PUT'])
@@ -69,6 +75,7 @@ def update_user(user_id):
         user.save()
         return jsonify(user.to_dict())
     except Exception as e:
+        logger.error(f"Error updating user {user_id}: {e}")
         return jsonify({'error': str(e)}), 500
 
 @user_bp.route('/users/<user_id>', methods=['DELETE'])
@@ -82,4 +89,5 @@ def delete_user(user_id):
         user.delete()
         return '', 204
     except Exception as e:
+        logger.error(f"Error deleting user {user_id}: {e}")
         return jsonify({'error': str(e)}), 500
