@@ -15,7 +15,7 @@ class GitHubModelsClient:
         
         if not self.token:
             logging.error("GITHUB_TOKEN environment variable not set")
-            raise ValueError("GitHub token is required")
+            print("⚠️ GITHUB_TOKEN not found - AI features will be disabled")
     
     async def chat_completion(
         self, 
@@ -38,6 +38,9 @@ class GitHubModelsClient:
         Returns:
             API response containing the generated text
         """
+        if not self.token:
+            return {"error": "GitHub token not configured"}
+            
         try:
             # Prepare messages with optional system prompt
             formatted_messages = []
@@ -105,4 +108,8 @@ class GitHubModelsClient:
             return f"Error extracting content: {str(e)}"
 
 # Global AI client instance
-ai_client = GitHubModelsClient()
+try:
+    ai_client = GitHubModelsClient()
+except Exception as e:
+    print(f"⚠️ AI client initialization failed: {e}")
+    ai_client = None

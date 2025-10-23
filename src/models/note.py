@@ -1,6 +1,9 @@
 from datetime import datetime
 from bson import ObjectId
 from src.config.database import database
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Note:
     def __init__(self, title=None, content=None, tags=None, start_time=None, end_time=None, _id=None, created_at=None, updated_at=None):
@@ -16,92 +19,147 @@ class Note:
     @staticmethod
     def get_collection():
         """Get the notes collection from MongoDB"""
-        return database.get_db().notes
+        db = database.get_db()
+        if db is None:
+            raise Exception("Database connection not available")
+        return db.notes
     
     def save(self):
         """Save the note to MongoDB"""
-        collection = self.get_collection()
-        note_data = {
-            'title': self.title,
-            'content': self.content,
-            'tags': self.tags,
-            'start_time': self.start_time,
-            'end_time': self.end_time,
-            'updated_at': datetime.utcnow()
-        }
-        
-        if self._id:
-            # Update existing note
-            collection.update_one(
-                {'_id': ObjectId(self._id)},
-                {'$set': note_data}
-            )
-        else:
-            # Create new note
-            note_data['created_at'] = self.created_at
-            result = collection.insert_one(note_data)
-            self._id = str(result.inserted_id)
-        
-        self.updated_at = note_data['updated_at']
-        return self
+        try:
+            if not database.is_connected():
+                raise Exception("Database not connected")
+                
+            collection = self.get_collection()
+            note_data = {
+                'title': self.title,
+                'content': self.content,
+                'tags': self.tags,
+                'start_time': self.start_time,
+                'end_time': self.end_time,
+                'updated_at': datetime.utcnow()
+            }
+            
+            if self._id:
+                # Update existing note
+                collection.update_one(
+                    {'_id': ObjectId(self._id)},
+                    {'$set': note_data}
+                )
+            else:
+                # Create new note
+                note_data['created_at'] = self.created_at
+                result = collection.insert_one(note_data)
+                self._id = str(result.inserted_id)
+            
+            self.updated_at = note_data['updated_at']
+            return self
+        except Exception as e:
+            logger.error(f"Error saving note: {e}")
+            raise
     
     @classmethod
     def find_all(cls):
         """Get all notes, ordered by most recently updated"""
-        collection = cls.get_collection()
-        notes = collection.find().sort('updated_at', -1)
-        return [cls.from_dict(note) for note in notes]
+        try:
+            if not database.is_connected():
+                logger.warning("Database not connected, returning empty list")
+                return []
+                
+            collection = cls.get_collection()
+            notes = collection.find().sort('updated_at', -1)
+            return [cls.from_dict(note) for note in notes]
+        except Exception as e:
+            logger.error(f"Error finding all notes: {e}")
+            return []
     
     @classmethod
     def find_by_id(cls, note_id):
         """Find a note by ID"""
         try:
+            if not database.is_connected():
+                logger.warning("Database not connected")
+                return None
+                
             collection = cls.get_collection()
             note = collection.find_one({'_id': ObjectId(note_id)})
             return cls.from_dict(note) if note else None
-        except:
+        except Exception as e:
+            logger.error(f"Error finding note by ID: {e}")
             return None
     
     @classmethod
     def search(cls, query):
         """Search notes by title, content, or tags"""
-        collection = cls.get_collection()
-        search_filter = {
-            '$or': [
-                {'title': {'$regex': query, '$options': 'i'}},
-                {'content': {'$regex': query, '$options': 'i'}},
-                {'tags': {'$regex': query, '$options': 'i'}}
-            ]
-        }
-        notes = collection.find(search_filter).sort('updated_at', -1)
-        return [cls.from_dict(note) for note in notes]
+        try:
+            if not database.is_connected():
+                logger.warning("Database not connected, returning empty list")
+                return []
+                
+            collection = cls.get_collection()
+            search_filter = {
+                '$or': [
+                    {'title': {'$regex': query, '$options': 'i'}},
+                    {'content': {'$regex': query, '$options': 'i'}},
+                    {'tags': {'$regex': query, '$options': 'i'}}
+                ]
+            }
+            notes = collection.find(search_filter).sort('updated_at', -1)
+            return [cls.from_dict(note) for note in notes]
+        except Exception as e:
+            logger.error(f"Error searching notes: {e}")
+            return []
     
     @classmethod
     def find_by_tag(cls, tag):
         """Find notes by specific tag"""
-        collection = cls.get_collection()
-        notes = collection.find({'tags': tag}).sort('updated_at', -1)
-        return [cls.from_dict(note) for note in notes]
+        try:
+            if not database.is_connected():
+                logger.warning("Database not connected, returning empty list")
+                return []
+                
+            collection = cls.get_collection()
+            notes = collection.find({'tags': tag}).sort('updated_at', -1)
+            return [cls.from_dict(note) for note in notes]
+        except Exception as e:
+            logger.error(f"Error finding notes by tag: {e}")
+            return []
     
     @classmethod
     def get_all_tags(cls):
         """Get all unique tags from all notes"""
-        collection = cls.get_collection()
-        pipeline = [
-            {'$unwind': '$tags'},
-            {'$group': {'_id': '$tags'}},
-            {'$sort': {'_id': 1}}
-        ]
-        result = collection.aggregate(pipeline)
-        return [item['_id'] for item in result]
+        try:
+            if not database.is_connected():
+                logger.warning("Database not connected, returning empty tags list")
+                return []
+                
+            collection = cls.get_collection()
+            pipeline = [
+                {'$unwind': '$tags'},
+                {'$group': {'_id': '$tags'}},
+                {'$sort': {'_id': 1}}
+            ]
+            result = collection.aggregate(pipeline)
+            return [item['_id'] for item in result]
+        except Exception as e:
+            logger.error(f"Error getting all tags: {e}")
+            return []
     
     def delete(self):
         """Delete the note from MongoDB"""
-        if self._id:
-            collection = self.get_collection()
-            collection.delete_one({'_id': ObjectId(self._id)})
-            return True
-        return False
+        try:
+            if not database.is_connected():
+                logger.warning("Database not connected")
+                return False
+                
+            if self._id:
+                collection = self.get_collection()
+                collection.delete_one({'_id': ObjectId(self._id)})
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"Error deleting note: {e}")
+            return False
     
     @classmethod
     def from_dict(cls, data):
