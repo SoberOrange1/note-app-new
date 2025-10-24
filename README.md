@@ -1,5 +1,5 @@
 # NoteTaker - Personal Note Management Application
-###This is the ex2 of Shujun Ju
+### This is the ex2 of Shujun Ju
 
 A modern, responsive web application for managing personal notes with a beautiful user interface and full CRUD functionality, now powered by **MongoDB Atlas** cloud database.
 
